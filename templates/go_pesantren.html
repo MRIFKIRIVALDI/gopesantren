@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rekomendasi Pesantren Terbaik</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #018568, #180066);
+      min-height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .card {
+      border-radius: 1rem;
+    }
+    .brand-title {
+      font-weight: bold;
+      font-size: 1.8rem;
+    }
+    .subtitle {
+      font-size: 1rem;
+      color: #f8f9fa;
+    }
+    .logo-img {
+  max-width: 320px;
+  margin-bottom: 40px;
+  }
+
+  </style>
+</head>
+<body>
+  <div class="container py-5">
+    <div class="text-center text-white mb-4">
+      <img src="{{ url_for('static', filename='gopesantren-logo.png') }}" alt="Logo GoPesantren" class="logo-img" />
+      <div class="brand-title">GoPesantren</div>
+      <div class="subtitle">Rekomendasi Pesantren Terbaik untuk Kamu</div>
+    </div>
+
+    <div class="card shadow-lg">
+      <div class="card-body">
+        <h5 class="card-title text-center mb-3">Cari Pesantren Rekomendasi</h5>
+        <form method="post">
+          <div class="mb-3">
+            <label for="daerah" class="form-label">Daerah</label>
+            <input class="form-control" list="daerahList" id="daerah" name="daerah" placeholder="Ketik atau pilih daerah..." required>
+                <datalist id="daerahList">
+                    <option value="Jakarta">
+                    <option value="Bandung">
+                    <option value="Sukabumi">
+                    <option value="Yogyakarta">
+                    <option value="Surabaya">
+                    <option value="Makassar">
+                    <option value="Medan">
+                    <option value="Balikpapan">
+                    <option value="Jayapura">
+                    <option value="Pontianak">
+                    <option value="Padang">
+                    <option value="Banjarmasin">
+                    <option value="Palembang">
+                    <option value="Manado">
+                    <option value="Lombok">
+                    <option value="Semarang">
+                    <option value="Aceh">
+                    <option value="Kupang">
+                    <option value="Ternate">
+                </datalist>
+          </div>
+
+          <div class="mb-3">
+            <label for="program" class="form-label">Program</label>
+            <select class="form-select" id="program" name="program" required>
+              <option value="">Pilih Program</option>
+              <option>Salafi</option>
+              <option>Modern</option>
+              <option>Tahfidz</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="biaya" class="form-label">Biaya Pendaftaran</label>
+            <select class="form-select" id="biaya" name="biaya" required>
+              <option value="">Pilih Biaya</option>
+              <option value="1000000">&lt; Rp1.000.000</option>
+              <option value="5000000">&lt; Rp5.000.000</option>
+              <option value="5000001">&gt; Rp5.000.000</option>
+            </select>
+          </div>
+
+          <div class="d-grid">
+            <button type="submit" class="btn btn-success btn-lg">
+              <i class="bi bi-search"></i> Cari Pesantren
+            </button>
+          </div>
+        </form>
+
+        {% if reply %}
+          <div class="mt-4">
+            <h5>Hasil Rekomendasi:</h5>
+            <div class="alert alert-info mt-2">{{ reply|safe }}</div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
