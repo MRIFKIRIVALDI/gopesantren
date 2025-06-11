@@ -37,7 +37,7 @@ def index():
         reply_raw = response.text
         reply = markdown.markdown(reply_raw)
 
-    return render_template("go_pesantren.html", reply=reply)
+    return render_template("bindex.html", reply=reply)
 
 if __name__ == "__main__":
     app.run(debug=True)
