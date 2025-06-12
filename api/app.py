@@ -2,10 +2,11 @@ from flask import Flask, request, render_template
 import google.generativeai as genai
 import markdown
 
-# Ganti dengan API Key Gemini kamu
+# Konfigurasi Gemini
 genai.configure(api_key="AIzaSyBAlVu0TMQvFk2MBjbSvAF2y23kUU44ry0")
 
-app = Flask(__name__)
+# Flask app
+app = Flask(__name__, static_folder="../static", template_folder="../templates")
 model = genai.GenerativeModel("gemini-2.0-flash")
 
 @app.route("/", methods=["GET", "POST"])
@@ -28,9 +29,9 @@ def index():
             f"Saya sedang mencari rekomendasi pesantren di daerah {daerah} "
             f"dengan program {program} dan biaya pendaftaran {biaya_text}. "
             f"Tolong berikan 4 - 5 rekomendasi yang cocok "
-            f"nama, keunggulan, lokasi, akun media sosial link pendaftaran, kalo ada tolong di sampaikan"
-            f"Selalu mulai dengan kalimat 'Assalamu’alaikum Sahabat GoPesantren'."
-            f"hilangkan kata tentu dalam memberi jawaban"
+            f"nama, keunggulan, lokasi, akun media sosial link pendaftaran, kalo ada tolong di sampaikan. "
+            f"Selalu mulai dengan kalimat 'Assalamu’alaikum Sahabat GoPesantren'. "
+            f"hilangkan kata tentu dalam memberi jawaban."
         )
 
         response = model.generate_content(prompt)
@@ -39,5 +40,10 @@ def index():
 
     return render_template("index.html", reply=reply)
 
+# ==== Handler untuk Vercel ====
+def handler(environ, start_response):
+    return app.wsgi_app(environ, start_response)
+
+# ==== Untuk testing lokal ====
 if __name__ == "__main__":
     app.run(debug=True)
